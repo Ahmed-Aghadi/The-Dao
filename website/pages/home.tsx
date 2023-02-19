@@ -83,6 +83,7 @@ export default function Home() {
     const divs = tiles.map((tile) => {
         return (
             <div
+                key={tile.title}
                 style={{
                     // backgroundColor: "blue",
                     height: "100%",

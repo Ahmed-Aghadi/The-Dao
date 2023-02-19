@@ -19,7 +19,7 @@ export default function Home() {
         })();
     }, []);
     const divs = daos.map((dao) => {
-        return <DaoCard daoAddress={dao} />;
+        return <DaoCard key={dao} daoAddress={dao} />;
     });
     const hrefs = daos.map((dao) => {
         return "/dao?address=" + dao;
