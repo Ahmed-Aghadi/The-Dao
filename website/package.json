@@ -1,0 +1,40 @@
+{
+  "name": "the-dao",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@mantine/carousel": "^5.10.3",
+    "@mantine/core": "^5.10.3",
+    "@mantine/dates": "^5.10.3",
+    "@mantine/dropzone": "^5.10.3",
+    "@mantine/form": "^5.10.3",
+    "@mantine/hooks": "^5.10.3",
+    "@mantine/modals": "^5.10.3",
+    "@mantine/notifications": "^5.10.3",
+    "@next/font": "13.1.6",
+    "@rainbow-me/rainbowkit": "^0.7.4",
+    "@tabler/icons": "^1.108.0",
+    "@types/node": "18.11.19",
+    "@types/react": "18.0.27",
+    "@types/react-dom": "18.0.10",
+    "animejs": "^3.2.1",
+    "cids": "^1.1.9",
+    "dayjs": "^1.11.7",
+    "embla-carousel-react": "^7.0.9",
+    "eslint": "8.33.0",
+    "eslint-config-next": "13.1.6",
+    "ethers": "^5.7.2",
+    "next": "13.1.6",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "typescript": "4.9.5",
+    "wagmi": "^0.7.10"
+  }
+}
