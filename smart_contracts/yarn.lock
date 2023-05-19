@@ -1171,6 +1171,11 @@
   dependencies:
     defer-to-connect "^2.0.1"
 
+"@tableland/evm@^4.2.2":
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/@tableland/evm/-/evm-4.2.2.tgz#c042fe7d174de69796942bc6625c2ff0636d3ef6"
+  integrity sha512-itcUWvnZ4CDujVXlP9SKM49Tfo1mawynf0PooceA76JqGMFKaO1f5LArD7Xss0YOvRMtRpQbELbfNdznIk+FGw==
+
 "@truffle/abi-utils@^0.3.6":
   version "0.3.6"
   resolved "https://registry.yarnpkg.com/@truffle/abi-utils/-/abi-utils-0.3.6.tgz#ab35bc437e4c059a5c9a0595cd6df367199493a9"
