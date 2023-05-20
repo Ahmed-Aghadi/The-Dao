@@ -3,6 +3,10 @@ pragma solidity ^0.8.13;
 
 import "./DataDao.sol";
 
+import "@tableland/evm/contracts/utils/TablelandDeployments.sol";
+import "@tableland/evm/contracts/utils/SQLHelpers.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
+
 contract DaoFactory {
     struct Deal {
         uint64 dealId;
@@ -19,6 +23,40 @@ contract DaoFactory {
     mapping(address => bool) public isDeployedDao;
     mapping(uint64 => ProviderDeals) public providerDeals;
 
+    uint256 private _tableId;
+    string private _tableName;
+    string private _prefix = "TheDao";
+    // Interface to the `TablelandTables` registry contract
+    ITablelandTables private _tableland;
+
+    constructor(address registry) {
+        _tableland = ITablelandTables(registry);
+        _tableId = TablelandDeployments.get().create(
+            address(this),
+            /*
+             *  CREATE TABLE {prefix}_{chainId} (
+             *    id integer primary key,
+             *    message text
+             *  );
+             */
+            string.concat(
+                "CREATE TABLE ",
+                _prefix,
+                "_",
+                Strings.toString(block.chainid),
+                " (id integer primary key, provider integer NOT NULL, dealId integer NOT NULL, dao text NOT NULL, proposolId text NOT NULL);"
+            )
+        );
+
+        _tableName = string.concat(
+            _prefix,
+            "_",
+            Strings.toString(block.chainid),
+            "_",
+            Strings.toString(_tableId)
+        );
+    }
+
     function createDao(
         address[] memory proposers,
         address[] memory voters,
@@ -34,6 +72,41 @@ contract DaoFactory {
         require(isDeployedDao[msg.sender], "This is not a deployed DAO");
         providerDeals[provider].provider = provider;
         providerDeals[provider].deals.push(Deal(dealId, msg.sender, proposolId));
+        TablelandDeployments.get().mutate(
+            address(this),
+            _tableId,
+            string.concat(
+                "INSERT INTO ",
+                _tableName,
+                " (provider, dealId, dao, proposolId) VALUES (",
+                "'",
+                Strings.toString(provider),
+                "','",
+                Strings.toString(dealId),
+                "','",
+                _addressToString(msg.sender),
+                "','",
+                Strings.toString(proposolId),
+                "');"
+            )
+        );
+    }
+
+    function _addressToString(address x) public pure returns (string memory) {
+        bytes memory s = new bytes(40);
+        for (uint256 i = 0; i < 20; i++) {
+            bytes1 b = bytes1(uint8(uint256(uint160(x)) / (2 ** (8 * (19 - i)))));
+            bytes1 hi = bytes1(uint8(b) / 16);
+            bytes1 lo = bytes1(uint8(b) - 16 * uint8(hi));
+            s[2 * i] = char(hi);
+            s[2 * i + 1] = char(lo);
+        }
+        return string.concat("0x", string(s));
+    }
+
+    function char(bytes1 b) public pure returns (bytes1 c) {
+        if (uint8(b) < 10) return bytes1(uint8(b) + 0x30);
+        else return bytes1(uint8(b) + 0x57);
     }
 
     function getProviderDeals(uint64 provider) public view returns (ProviderDeals memory) {
