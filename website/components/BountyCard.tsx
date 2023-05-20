@@ -107,6 +107,7 @@ type BountyCardArg = {
     endTime: Date;
     enabled: boolean;
     minVotes: number;
+    contractAddress: string;
 };
 
 type Deal = {
@@ -127,6 +128,7 @@ export function BountyCard({
     endTime,
     enabled,
     minVotes,
+    contractAddress,
 }: BountyCardArg) {
     const { classes, theme, cx } = useStyles();
     const { data: signer } = useSigner();
@@ -191,7 +193,7 @@ export function BountyCard({
         });
 
         try {
-            const address = router.query.address as string;
+            const address = contractAddress;
             const contractInstance = new ethers.Contract(
                 address,
                 dataDaoAbi,
