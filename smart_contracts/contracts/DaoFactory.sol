@@ -26,11 +26,8 @@ contract DaoFactory {
     uint256 private _tableId;
     string private _tableName;
     string private _prefix = "TheDao";
-    // Interface to the `TablelandTables` registry contract
-    ITablelandTables private _tableland;
 
-    constructor(address registry) {
-        _tableland = ITablelandTables(registry);
+    constructor() {
         _tableId = TablelandDeployments.get().create(
             address(this),
             /*
