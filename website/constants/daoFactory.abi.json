@@ -1,171 +1,270 @@
 [
-    {
-        "inputs": [
-            {
-                "internalType": "uint64",
-                "name": "provider",
-                "type": "uint64"
-            },
-            {
+  {
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "chainid",
+        "type": "uint256"
+      }
+    ],
+    "name": "ChainNotSupported",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "dao",
+        "type": "address"
+      }
+    ],
+    "name": "DaoCreated",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "x",
+        "type": "address"
+      }
+    ],
+    "name": "_addressToString",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "provider",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint64",
+        "name": "dealId",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint256",
+        "name": "proposolId",
+        "type": "uint256"
+      }
+    ],
+    "name": "addDeal",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes1",
+        "name": "b",
+        "type": "bytes1"
+      }
+    ],
+    "name": "char",
+    "outputs": [
+      {
+        "internalType": "bytes1",
+        "name": "c",
+        "type": "bytes1"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address[]",
+        "name": "proposers",
+        "type": "address[]"
+      },
+      {
+        "internalType": "address[]",
+        "name": "voters",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "minVotesArg",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      }
+    ],
+    "name": "createDao",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "newDao",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "deployedDaos",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getDeployedDaos",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "provider",
+        "type": "uint64"
+      }
+    ],
+    "name": "getProviderDeals",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint64",
+            "name": "provider",
+            "type": "uint64"
+          },
+          {
+            "components": [
+              {
                 "internalType": "uint64",
                 "name": "dealId",
                 "type": "uint64"
-            },
-            {
+              },
+              {
+                "internalType": "address",
+                "name": "dao",
+                "type": "address"
+              },
+              {
                 "internalType": "uint256",
                 "name": "proposolId",
                 "type": "uint256"
-            }
+              }
+            ],
+            "internalType": "struct DaoFactory.Deal[]",
+            "name": "deals",
+            "type": "tuple[]"
+          }
         ],
-        "name": "addDeal",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address[]",
-                "name": "proposers",
-                "type": "address[]"
-            },
-            {
-                "internalType": "address[]",
-                "name": "voters",
-                "type": "address[]"
-            },
-            {
-                "internalType": "uint256",
-                "name": "minVotesArg",
-                "type": "uint256"
-            },
-            {
-                "internalType": "string",
-                "name": "name",
-                "type": "string"
-            }
-        ],
-        "name": "createDao",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "name": "deployedDaos",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "getDeployedDaos",
-        "outputs": [
-            {
-                "internalType": "address[]",
-                "name": "",
-                "type": "address[]"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint64",
-                "name": "provider",
-                "type": "uint64"
-            }
-        ],
-        "name": "getProviderDeals",
-        "outputs": [
-            {
-                "components": [
-                    {
-                        "internalType": "uint64",
-                        "name": "provider",
-                        "type": "uint64"
-                    },
-                    {
-                        "components": [
-                            {
-                                "internalType": "uint64",
-                                "name": "dealId",
-                                "type": "uint64"
-                            },
-                            {
-                                "internalType": "address",
-                                "name": "dao",
-                                "type": "address"
-                            },
-                            {
-                                "internalType": "uint256",
-                                "name": "proposolId",
-                                "type": "uint256"
-                            }
-                        ],
-                        "internalType": "struct DaoFactory.Deal[]",
-                        "name": "deals",
-                        "type": "tuple[]"
-                    }
-                ],
-                "internalType": "struct DaoFactory.ProviderDeals",
-                "name": "",
-                "type": "tuple"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "name": "isDeployedDao",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint64",
-                "name": "",
-                "type": "uint64"
-            }
-        ],
-        "name": "providerDeals",
-        "outputs": [
-            {
-                "internalType": "uint64",
-                "name": "provider",
-                "type": "uint64"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    }
+        "internalType": "struct DaoFactory.ProviderDeals",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getTableId",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getTableName",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "isDeployedDao",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "",
+        "type": "uint64"
+      }
+    ],
+    "name": "providerDeals",
+    "outputs": [
+      {
+        "internalType": "uint64",
+        "name": "provider",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
 ]

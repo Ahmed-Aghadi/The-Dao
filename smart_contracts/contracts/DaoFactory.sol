@@ -8,6 +8,7 @@ import "@tableland/evm/contracts/utils/SQLHelpers.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract DaoFactory {
+    event DaoCreated(address dao);
     struct Deal {
         uint64 dealId;
         address dao;
@@ -41,7 +42,7 @@ contract DaoFactory {
                 _prefix,
                 "_",
                 Strings.toString(block.chainid),
-                " (id integer primary key, provider integer NOT NULL, dealId integer NOT NULL, dao text NOT NULL, proposolId text NOT NULL);"
+                " (id integer primary key, provider text NOT NULL, dealId text NOT NULL, dao text NOT NULL, proposolId text NOT NULL);"
             )
         );
 
@@ -59,10 +60,11 @@ contract DaoFactory {
         address[] memory voters,
         uint minVotesArg,
         string memory name
-    ) public {
-        address newDao = address(new DataDao(proposers, voters, minVotesArg, name, address(this)));
+    ) public returns (address newDao) {
+        newDao = address(new DataDao(proposers, voters, minVotesArg, name, address(this)));
         deployedDaos.push(newDao);
         isDeployedDao[newDao] = true;
+        emit DaoCreated(newDao);
     }
 
     function addDeal(uint64 provider, uint64 dealId, uint proposolId) public {
@@ -72,19 +74,19 @@ contract DaoFactory {
         TablelandDeployments.get().mutate(
             address(this),
             _tableId,
-            string.concat(
-                "INSERT INTO ",
-                _tableName,
-                " (provider, dealId, dao, proposolId) VALUES (",
-                "'",
-                Strings.toString(provider),
-                "','",
-                Strings.toString(dealId),
-                "','",
-                _addressToString(msg.sender),
-                "','",
-                Strings.toString(proposolId),
-                "');"
+            SQLHelpers.toInsert(
+                _prefix,
+                _tableId,
+                "provider,dealId,dao,proposolId",
+                string.concat(
+                    SQLHelpers.quote(Strings.toString(provider)),
+                    ",",
+                    SQLHelpers.quote(Strings.toString(dealId)),
+                    ",",
+                    SQLHelpers.quote(_addressToString(msg.sender)),
+                    ",",
+                    SQLHelpers.quote(Strings.toString(proposolId))
+                )
             )
         );
     }
@@ -112,5 +114,13 @@ contract DaoFactory {
 
     function getDeployedDaos() public view returns (address[] memory) {
         return deployedDaos;
+    }
+
+    function getTableName() public view returns (string memory) {
+        return _tableName;
+    }
+
+    function getTableId() public view returns (uint256) {
+        return _tableId;
     }
 }

@@ -1,18 +1,20 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 import {MarketAPI} from "@zondax/filecoin-solidity/contracts/v0.8/MarketAPI.sol";
 import {MarketTypes} from "@zondax/filecoin-solidity/contracts/v0.8/types/MarketTypes.sol";
+import {CommonTypes} from "@zondax/filecoin-solidity/contracts/v0.8/types/CommonTypes.sol";
 
 contract FilecoinMarketConsumer {
-    string public dealLabel;
+    CommonTypes.DealLabel public dealLabel;
     uint64 public dealClientActorId;
     uint64 public dealProviderActorId;
     bool public isDealActivated;
     MarketTypes.GetDealDataCommitmentReturn public dealCommitment;
     MarketTypes.GetDealTermReturn public dealTerm;
-    MarketTypes.GetDealEpochPriceReturn public dealPricePerEpoch;
-    MarketTypes.GetDealClientCollateralReturn public clientCollateral; 
-    MarketTypes.GetDealProviderCollateralReturn public providerCollateral;
+    CommonTypes.BigInt public dealPricePerEpoch;
+    CommonTypes.BigInt public clientCollateral; 
+    CommonTypes.BigInt public providerCollateral;
     MarketTypes.GetDealActivationReturn public activationStatus;
 
     function storeAll(uint64 dealId) public {
@@ -29,15 +31,15 @@ contract FilecoinMarketConsumer {
     } 
 
     function storeDealLabel(uint64 dealId) public  {
-        dealLabel = MarketAPI.getDealLabel(dealId).label;
+        dealLabel = MarketAPI.getDealLabel(dealId);
     }
 
     function storeDealClient(uint64 dealId) public {
-        dealClientActorId = MarketAPI.getDealClient(dealId).client;
+        dealClientActorId = MarketAPI.getDealClient(dealId);
     }
 
     function storeDealClientProvider(uint64 dealId) public {
-        dealProviderActorId = MarketAPI.getDealProvider(dealId).provider;
+        dealProviderActorId = MarketAPI.getDealProvider(dealId);
     }
 
     function storeDealCommitment(uint64 dealId) public {
@@ -61,7 +63,7 @@ contract FilecoinMarketConsumer {
     }
 
     function storeDealVerificaton(uint64 dealId) public {
-        isDealActivated = MarketAPI.getDealVerified(dealId).verified;
+        isDealActivated = MarketAPI.getDealVerified(dealId);
     }
 
     function storeDealActivationStatus(uint64 dealId) public {

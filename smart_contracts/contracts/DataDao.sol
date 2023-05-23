@@ -3,8 +3,18 @@ pragma solidity ^0.8.13;
 
 import "@zondax/filecoin-solidity/contracts/v0.8/MarketAPI.sol";
 import "@zondax/filecoin-solidity/contracts/v0.8/types/MarketTypes.sol";
+import "@zondax/filecoin-solidity/contracts/v0.8/types/CommonTypes.sol";
 import "@zondax/filecoin-solidity/contracts/v0.8/utils/Actor.sol";
 import "./DaoFactory.sol";
+
+error ProposalNotEnabled();
+error DataSizeMismatch();
+error ProposalFundsMissing();
+error PolicyCheckFailed();
+error MinDealsNotMet();
+error DealTooShort();
+error MaxDealsReached();
+error MaxDealsAtATimeReached();
 
 contract DataDao {
     struct Deal {
@@ -171,7 +181,7 @@ contract DataDao {
         MarketTypes.GetDealDataCommitmentReturn memory commitmentRet = MarketAPI
             .getDealDataCommitment(dealId);
 
-        MarketTypes.GetDealProviderReturn memory providerRet = MarketAPI.getDealProvider(dealId);
+        uint64 providerRet = MarketAPI.getDealProvider(dealId);
 
         MarketTypes.GetDealTermReturn memory termRet = MarketAPI.getDealTerm(dealId);
 
@@ -179,20 +189,23 @@ contract DataDao {
 
         uint proposalId = cidProposalId[cidraw];
         require(proposalId != 0, "proposal does not exist");
-        Proposal memory proposal = proposals[proposalId];
+        Proposal storage proposal = proposals[proposalId];
 
         authorizeData(
-            providerRet.provider,
+            providerRet,
             commitmentRet.size,
-            termRet.start,
-            termRet.end,
+            CommonTypes.ChainEpoch.unwrap(termRet.start),
+            CommonTypes.ChainEpoch.unwrap(termRet.end),
             proposal
         );
+
+        proposals[proposalId].amountedFunded -= proposal.bountyAmount;
+
         proposalDealIds[proposalId].push(dealId);
-        DaoFactory(daoFactory).addDeal(providerRet.provider, dealId, proposal.id);
+        DaoFactory(daoFactory).addDeal(providerRet, dealId, proposal.id);
         // get dealer (bounty hunter client)
-        MarketTypes.GetDealClientReturn memory clientRet = MarketAPI.getDealClient(dealId);
-        send(clientRet.client, proposal.bountyAmount);
+        uint64 clientRet = MarketAPI.getDealClient(dealId);
+        send(clientRet, proposal.bountyAmount);
     }
 
     function policyOK(uint id, uint64 provider) internal view returns (bool) {
@@ -207,34 +220,41 @@ contract DataDao {
         int64 end,
         Proposal memory proposal
     ) public {
-        require(proposal.enabled, "proposal must be enabled");
-        require(proposal.size == size, "data size must match expected");
-        require(proposal.amountedFunded != 0, "proposal must have funds");
-        require(
-            policyOK(proposal.id, provider),
-            "deal failed policy check: has provider already claimed this cid?"
-        );
-        require(
-            DaoFactory(daoFactory).getProviderDeals(provider).deals.length >= proposal.minDealsDone,
-            "deal failed policy check: minDealsDone"
-        );
-        require(
-            uint64(start) + proposal.minDays <= block.number,
-            "deal must be longer than minDays"
-        );
-        require(end - start >= int64(proposal.minDays), "deal must be longer than minDays");
+        if (!proposal.enabled) {
+            revert ProposalNotEnabled();
+        }
+        if (proposal.size != size) {
+            revert DataSizeMismatch();
+        }
+        if (proposal.amountedFunded == 0) {
+            revert ProposalFundsMissing();
+        }
+        if (!policyOK(proposal.id, provider)) {
+            revert PolicyCheckFailed();
+        }
+        if (
+            DaoFactory(daoFactory).getProviderDeals(provider).deals.length < proposal.minDealsDone
+        ) {
+            revert MinDealsNotMet();
+        }
+        if (uint64(start) + proposal.minDays > block.number) {
+            revert DealTooShort();
+        }
+        if (end - start < int64(proposal.minDays)) {
+            revert DealTooShort();
+        }
         Deal storage currDeal = cidDeals[proposal.id];
-        require(
-            currDeal.end.length < proposal.numberOfBounties,
-            "deal failed policy check: max deals"
-        );
-        require(
-            proposal.maxDealAtATime == 0 ||
-                currDeal.end.length - currDeal.minIndex < proposal.maxDealAtATime ||
-                currDeal.end[currDeal.minIndex] < end,
-            "deal failed policy check: maxDealAtATime"
-        );
-        if (currDeal.end[currDeal.minIndex] < end) {
+        if (currDeal.end.length >= proposal.numberOfBounties) {
+            revert MaxDealsReached();
+        }
+        if (
+            proposal.maxDealAtATime != 0 &&
+            currDeal.end.length - currDeal.minIndex >= proposal.maxDealAtATime &&
+            currDeal.end[currDeal.minIndex] >= end
+        ) {
+            revert MaxDealsAtATimeReached();
+        }
+        if (currDeal.end.length != 0 && currDeal.end[currDeal.minIndex] < end) {
             currDeal.minIndex++;
         }
 
@@ -255,7 +275,14 @@ contract DataDao {
         bytes memory emptyParams = "";
         delete emptyParams;
 
-        Actor.callByID(actorID, METHOD_SEND, Misc.NONE_CODEC, emptyParams, amount);
+        Actor.callByID(
+            CommonTypes.FilActorId.wrap(actorID),
+            METHOD_SEND,
+            Misc.NONE_CODEC,
+            emptyParams,
+            amount,
+            false
+        );
     }
 
     function getCurrentBlockNumber() public view returns (uint) {

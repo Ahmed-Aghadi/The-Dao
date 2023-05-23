@@ -37,6 +37,7 @@ module.exports = async ({ deployments }) => {
     const { deploy } = deployments
 
     const priorityFee = await callRpc("eth_maxPriorityFeePerGas")
+    console.log("priorityFee:", priorityFee)
 
     // Wraps Hardhat's deploy, logging errors to console.
     const deployLogError = async (title, obj) => {
