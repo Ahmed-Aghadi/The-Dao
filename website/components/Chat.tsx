@@ -122,6 +122,7 @@ export function Chat() {
 
   // fetch messages automatically every 5 seconds
   useEffect(() => {
+    return;
     const interval = setInterval(() => {
       fetchMessages();
     }, 5000);

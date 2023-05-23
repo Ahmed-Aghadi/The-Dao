@@ -26,7 +26,7 @@ type Proposal = {
   maxDealAtATime: number;
   minDealsDone: number;
   endTime: Date;
-  enabled: boolean;
+  enabled: number;
   minVotes: number;
   contractAddress: string;
 };
@@ -60,7 +60,7 @@ export default function Home() {
         ).toString();
         for (let j = 1; j <= proposalCount; j++) {
           const proposal = await contractInstance.proposals(j);
-          if (!proposal.enabled) {
+          if (proposal.enabled.toString() != "3") {
             continue;
           }
           setBounties((proposals) => [

@@ -1,8 +1,11 @@
 import { AppContainer } from "@/components/AppContainer";
-import { Container } from "@mantine/core";
+import { Container, FileInput } from "@mantine/core";
 import { useAccount, useSigner } from "wagmi";
 import { Polybase } from "@polybase/client";
 import { ethers } from "ethers";
+import { useState } from "react";
+
+import CID from "cids";
 
 const db = new Polybase({
   defaultNamespace:
@@ -11,6 +14,9 @@ const db = new Polybase({
 
 export default function Home() {
   const { data: signer } = useSigner();
+
+  const [file, setFile] = useState<File | null>(null);
+
   const signData = async (data: string) => {
     const signature = await signer!.signMessage(data);
     console.log("signature", signature);
@@ -94,6 +100,38 @@ export default function Home() {
     console.log("recordData", recordData);
   };
 
+  const uploadFile = async () => {
+    if (!file) return;
+    const body = new FormData();
+    body.append("file", file);
+    const res = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/test", {
+      method: "POST",
+      body: body,
+    });
+    console.log("res", res);
+    const jsonRes = await res.json();
+    console.log("jsonRes", jsonRes);
+  };
+  function test() {
+    const cidHexRaw = new CID("QmWfVY9y3xjsixTgbd9AorQxH7VtMpzfx2HaWtsoUYecaX")
+      .toV1()
+      .toString("base16")
+      .substring(1);
+    const cidHex = "0x00" + cidHexRaw;
+    console.log("cidHex", cidHex);
+
+    const b = new CID("f" + cidHex.substring(4)).toString("base32");
+    console.log("cid", b);
+
+    console.log(
+      "CIDD",
+      new CID("QmWfVY9y3xjsixTgbd9AorQxH7VtMpzfx2HaWtsoUYecaX")
+        .toV1()
+        .toString("base32")
+    );
+  }
+  test();
+
   return (
     <AppContainer>
       <div
@@ -107,6 +145,13 @@ export default function Home() {
           <button onClick={createDao}>Create DAO</button>
           <button onClick={addMembers}>Add Members</button>
           <button onClick={addMessage}>Add Message</button>
+          <FileInput
+            label="Upload files"
+            placeholder="Upload files"
+            value={file}
+            onChange={setFile}
+          />
+          <button onClick={uploadFile}>Upload File</button>
         </Container>
       </div>
     </AppContainer>

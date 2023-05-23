@@ -74,6 +74,11 @@
   },
   {
     "inputs": [],
+    "name": "InvalidMinVotes",
+    "type": "error"
+  },
+  {
+    "inputs": [],
     "name": "InvalidResponseLength",
     "type": "error"
   },
@@ -90,6 +95,11 @@
   {
     "inputs": [],
     "name": "MinDealsNotMet",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NoName",
     "type": "error"
   },
   {
@@ -110,6 +120,21 @@
   },
   {
     "inputs": [],
+    "name": "NotOwner",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotProposer",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotVoter",
+    "type": "error"
+  },
+  {
+    "inputs": [],
     "name": "PolicyCheckFailed",
     "type": "error"
   },
@@ -122,6 +147,29 @@
     "inputs": [],
     "name": "ProposalNotEnabled",
     "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ProposersZero",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "VotersZero",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      }
+    ],
+    "name": "ProposalCreated",
+    "type": "event"
   },
   {
     "inputs": [
@@ -229,9 +277,9 @@
             "type": "uint256"
           },
           {
-            "internalType": "bool",
+            "internalType": "uint8",
             "name": "enabled",
-            "type": "bool"
+            "type": "uint8"
           }
         ],
         "internalType": "struct DataDao.Proposal",
@@ -360,6 +408,11 @@
         "internalType": "uint256",
         "name": "endTime",
         "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "partialEnabled",
+        "type": "bool"
       }
     ],
     "name": "createProposol",
@@ -386,37 +439,34 @@
         "internalType": "uint256",
         "name": "proposalId",
         "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "cidraw",
+        "type": "bytes"
+      },
+      {
+        "internalType": "uint256",
+        "name": "size",
+        "type": "uint256"
+      }
+    ],
+    "name": "enablePartial",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "proposalId",
+        "type": "uint256"
       }
     ],
     "name": "fund",
     "outputs": [],
     "stateMutability": "payable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getCurrentBlockNumber",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getCurrentTimestamp",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -623,9 +673,9 @@
         "type": "uint256"
       },
       {
-        "internalType": "bool",
+        "internalType": "uint8",
         "name": "enabled",
-        "type": "bool"
+        "type": "uint8"
       }
     ],
     "stateMutability": "view",

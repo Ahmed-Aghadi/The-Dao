@@ -62,5 +62,6 @@ module.exports = async ({ deployments }) => {
         // maxPriorityFeePerGas to instruct hardhat to use EIP-1559 tx format
         maxPriorityFeePerGas: priorityFee,
         log: true,
+        // gasLimit: 1000000000,
     })
 }

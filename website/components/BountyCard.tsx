@@ -105,7 +105,7 @@ type BountyCardArg = {
   maxDealAtATime: number;
   minDealsDone: number;
   endTime: Date;
-  enabled: boolean;
+  enabled: number;
   minVotes: number;
   contractAddress: string;
 };
@@ -337,15 +337,25 @@ export function BountyCard({
             }
           />
         </div>
-        <Select
-          label="Your Deal ID"
-          placeholder="Select Deal ID"
-          searchable
-          nothingFound="No options"
-          value={value}
-          onChange={setValue}
-          data={deals}
-        />
+        {deals.length == 0 ? (
+          <TextInput
+            label="Your Deal ID"
+            placeholder="Enter Deal ID"
+            type="number"
+            value={value || ""}
+            onChange={(e) => setValue(e.currentTarget.value)}
+          />
+        ) : (
+          <Select
+            label="Your Deal ID"
+            placeholder="Select Deal ID"
+            searchable
+            nothingFound="No options"
+            value={value}
+            onChange={setValue}
+            data={deals}
+          />
+        )}
         <Button
           mt="md"
           variant="outline"

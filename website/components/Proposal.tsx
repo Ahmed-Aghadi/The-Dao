@@ -72,7 +72,7 @@ type Proposal = {
   maxDealAtATime: number;
   minDealsDone: number;
   endTime: Date;
-  enabled: boolean;
+  enabled: number;
 };
 
 export function Proposal() {
@@ -103,9 +103,12 @@ export function Proposal() {
           ...proposals,
           {
             id: proposal.id.toString(),
-            cid: new CID("f" + proposal.cid.toString().substring(4)).toString(
-              "base32"
-            ),
+            cid:
+              proposal.enabled.toString() == 1
+                ? "0x0"
+                : new CID("f" + proposal.cid.toString().substring(4)).toString(
+                    "base32"
+                  ),
             size: proposal.size.toString(),
             bountyAmount: ethers.utils.formatEther(
               proposal.bountyAmount.toString()
@@ -119,7 +122,7 @@ export function Proposal() {
             maxDealAtATime: proposal.maxDealAtATime.toString(),
             minDealsDone: proposal.minDealsDone.toString(),
             endTime: new Date(proposal.endTime.toString() * 1000),
-            enabled: proposal.enabled,
+            enabled: proposal.enabled.toString(),
           },
         ]);
       }
