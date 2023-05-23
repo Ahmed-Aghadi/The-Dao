@@ -15,7 +15,12 @@ import {
   Text,
   Title,
 } from "@mantine/core";
-import { IconBoxMultiple0, IconCirclePlus, IconEdit } from "@tabler/icons";
+import {
+  IconBoxMultiple0,
+  IconCirclePlus,
+  IconEdit,
+  IconMessage,
+} from "@tabler/icons";
 import { CreateProposal } from "@/components/CreateProposal";
 import { Proposal } from "@/components/Proposal";
 import { ProposalRole } from "@/components/ProposalRole";
@@ -243,7 +248,7 @@ export default function Home() {
                 <Tabs.Tab value="fourth" icon={<IconEdit />}>
                   Update Voter Roles
                 </Tabs.Tab>
-                <Tabs.Tab value="fifth" icon={<IconEdit />}>
+                <Tabs.Tab value="fifth" icon={<IconMessage />}>
                   Chat
                 </Tabs.Tab>
               </Tabs.List>

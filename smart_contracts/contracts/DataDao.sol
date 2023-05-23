@@ -284,7 +284,7 @@ contract DataDao {
         int64 end,
         Proposal memory proposal
     ) public {
-        if (proposal.enabled == 3) {
+        if (proposal.enabled != 3) {
             revert ProposalNotEnabled();
         }
         if (proposal.size != size) {
