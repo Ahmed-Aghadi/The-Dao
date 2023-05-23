@@ -25,6 +25,36 @@ Once dao is created, user with proposal role can create proposals, and once enou
 
 DAO can also create partial proposal, where it upload file to filecoin after proposal is passsed and then enable the proposal.
 
-Reputation of providers are stored on DAO Factory, so all the dao can access that data. [Stored here](https://github.com/Ahmed-Aghadi/The-Dao/blob/main/smart_contracts/contracts/DaoFactory.sol#L20) | [Accessed here](https://github.com/Ahmed-Aghadi/The-Dao/blob/main/smart_contracts/contracts/DataDao.sol#L239)
+Reputation of providers are stored on DAO Factory, so all the dao can access that data. [Stored here](https://github.com/Ahmed-Aghadi/The-Dao/blob/main/smart_contracts/contracts/DaoFactory.sol#L18)
 
 Contract Address of Dao Factory: [DAO FACTORY](https://github.com/Ahmed-Aghadi/The-Dao/blob/main/website/constants/contractAddress.json#L2)
+
+### Spheron
+
+Spheron is used to upload file for partial proposals to IPFS
+
+#### Atleast one example:
+
+[API to upload to file to spheron](https://github.com/Ahmed-Aghadi/The-Dao/blob/main/website/pages/api/upload-spheron.ts)
+
+### Tableland
+
+Data sets of on-chain reputations of storage providers are stored on tableland
+
+[Store Data Using Smart Contract](https://github.com/Ahmed-Aghadi/The-Dao/blob/main/smart_contracts/contracts/DaoFactory.sol#L74)
+
+### Lighthouse
+
+Lighthouse is used to upload file to filecoin network to enable partial proposal.
+
+[API to upload file to lighthouse](https://github.com/Ahmed-Aghadi/The-Dao/blob/main/website/pages/api/upload-lighthouse.ts)
+
+### Polybase
+
+Polybase is used to have chat system for Data DAOs and file url of partial proposal is stored on polybase.
+
+[DAO Collection](https://explorer.testnet.polybase.xyz/collections/pk%2F0x2c57ac0fb26925e229569ad92eb06f540da113b565ee2943fb53029e44b2a60f0a3333bac53dcb89baf2f0b8fec75f175ceb1bb5bb658d9c24e89b27c06f606f%2FGeneral_Use%2FDAO)
+
+[Message Collection](https://explorer.testnet.polybase.xyz/collections/pk%2F0x2c57ac0fb26925e229569ad92eb06f540da113b565ee2943fb53029e44b2a60f0a3333bac53dcb89baf2f0b8fec75f175ceb1bb5bb658d9c24e89b27c06f606f%2FGeneral_Use%2FMessage)
+
+[Proposal Collection](https://explorer.testnet.polybase.xyz/collections/pk%2F0x2c57ac0fb26925e229569ad92eb06f540da113b565ee2943fb53029e44b2a60f0a3333bac53dcb89baf2f0b8fec75f175ceb1bb5bb658d9c24e89b27c06f606f%2FGeneral_Use%2FProposal)
