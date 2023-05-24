@@ -4,7 +4,7 @@
 
 This platform let **Data Dao** have **complex storage deals**. It provides proper **UX** for Filecoin storage providers & clients. DAO can create complex proposal and bounties and the **orchestration** and **aggregation** of the deals will be **programmatically** handled by Smart Contracts.
 
-It helps data dao to create **complex bounties** including **multiple bounties** which will ensure data to be stored **concurrently** for a **longer perioud of time** and also on the basis **on-chain reputation of providers**.
+It helps data dao to create **complex bounties** including **multiple bounties** which will ensure data to be stored **concurrently** for a **longer perioud of time** by **perpetual** deals and also on the basis **on-chain reputation of providers**.
 
 Reputation of storage providers are generated as more bounty deals are completed and on-chain reputation will be generated. This data can be further used by Data DAOs to have **restriction on storage deals** such that only storage provider with a minimum reputation can do the deal. The data sets of the on-chain reputation of storage provider is also stored on **Tableland** from smart contracts. So anyone can use the data sets for their platform to further provide **better ecosystem for FVM**.
 
