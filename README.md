@@ -2,7 +2,7 @@
 
 ### Deployed website (deployed on vercel): [The Dao](https://the-dao.vercel.app/)
 
-This platform let **Data Dao** have **complex storage deals**. It provides proper UX for Filecoin storage providers & clients. DAO can create complex proposal and bounties and the orchestration and aggregation of the deals will be programmatically handled by Smart Contracts.
+This platform let **Data Dao** have **complex storage deals**. It provides proper **UX** for Filecoin storage providers & clients. DAO can create complex proposal and bounties and the **orchestration** and **aggregation** of the deals will be **programmatically** handled by Smart Contracts.
 
 It helps data dao to create **complex bounties** including **multiple bounties** which will ensure data to be stored **concurrently** for a **longer perioud of time** and also on the basis **on-chain reputation of providers**.
 
