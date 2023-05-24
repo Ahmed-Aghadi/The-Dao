@@ -2,9 +2,18 @@
 
 ### Deployed website (deployed on vercel): [The Dao](https://the-dao.vercel.app/)
 
-It helps data dao to create complex bounties including multiple bounties which will ensure data to be stored concurrently for a longer perioud of time and also on the basis on-chain reputation of providers.
+This platform let **Data Dao** have **complex storage deals**. It provides proper UX for Filecoin storage providers & clients. DAO can create complex proposal and bounties and the orchestration and aggregation of the deals will be programmatically handled by Smart Contracts.
 
-This platform let user create DAO which will have list of proposers and voters. Proposer can propose a proposal and voter can vote on proposals.
+It helps data dao to create **complex bounties** including **multiple bounties** which will ensure data to be stored **concurrently** for a **longer perioud of time** and also on the basis **on-chain reputation of providers**.
+
+Reputation of storage providers are generated as more bounty deals are completed and on-chain reputation will be generated. This data can be further used by Data DAOs to have **restriction on storage deals** such that only storage provider with a minimum reputation can do the deal. The data sets of the on-chain reputation of storage provider is also stored on **Tableland** from smart contracts. So anyone can use the data sets for their platform to further provide **better ecosystem for FVM**.
+
+A data dao is first to be created. And Owner can assign and unassign proposal and voter role. Owner can also update minimum number of votes required to pass a proposal.
+
+Once dao is created, user with proposal role can create proposals, and once enough votes have been registered, it is supposed to be funded. After funding is done. Client can claim bounties.
+
+Proposer can propose a proposal and voter can vote on proposals.
+
 Schema of Proposal:
   - CID
   - Size of File
@@ -15,25 +24,31 @@ Schema of Proposal:
   - Minimum bounty deals the storage provider should have done before claiming the bounty ( This data will be taken from on-chain reputation generated from our smart contracts )
   - Expiry date and time ( proposal should have enough votes before expiry )
 
-So a Proposal can be created in such a way that at a time only a particular number of deals can be active, so multiple deals can be active at a time which will make sure data is stored by multiple providers and also data will be stored for a much longer period of time as multiple bounties can be assigned to a proposal.
+So a Proposal can be created in such a way that **at a time only a particular number of deals can be active**, so **multiple deals** can be active at a time which will make sure data is **stored by multiple providers** and also data will be **stored for a much longer period of time** as **multiple bounties** can be assigned to a proposal.
 
-The DAO also stored reputation of each provider so a proposal of any data dao can add a condition that only those provider who have done 'x' deals in The DAO can participate in the bounty.
+The DAO also stored **reputation of each storage provider** so a proposal of any data dao can add a condition that only those provider who have done 'x' deals in The DAO can participate in the bounty.
 
-A data dao is first to be created. And Owner can assign and unassign proposal and voter role. Owner can also update minimum number of votes required to pass a proposal.
+DAO can also create **partial proposal**, where it upload file to Filecoin after the proposal is passsed and then enable the proposal.
 
-Once dao is created, user with proposal role can create proposals, and once enough votes have been registered, it is supposed to be funded. After funding is done. Client can claim bounties.
+So for partial proposal, file will be **uploaded to IFPS** using **Spheron** and after the proposal is accepted, file can be **uploaded to Filecoin Network** using **Lighthouse**.
 
-DAO can also create partial proposal, where it upload file to filecoin after proposal is passsed and then enable the proposal.
+The IPFS URL of the file for partial proposal will be stored of **Polybase**.
+
+Members of the DAO can also **chat** on the DAO. The logic chats and **access control** for the chats are implemented using **Polybase**.
 
 Reputation of providers are stored on DAO Factory, so all the dao can access that data. [Stored here](https://github.com/Ahmed-Aghadi/The-Dao/blob/main/smart_contracts/contracts/DaoFactory.sol#L18)
 
 Contract Address of Dao Factory: [DAO FACTORY](https://github.com/Ahmed-Aghadi/The-Dao/blob/main/website/constants/contractAddress.json#L2)
 
+### Smart Contracts
+
+There are mainly 2 smart contracts:
+  - [DAO Factory](https://github.com/Ahmed-Aghadi/The-Dao/blob/main/smart_contracts/contracts/DaoFactory.sol)
+  - [Data Dao](https://github.com/Ahmed-Aghadi/The-Dao/blob/main/smart_contracts/contracts/DataDao.sol)
+
 ### Spheron
 
-Spheron is used to upload file for partial proposals to IPFS
-
-#### Atleast one example:
+Spheron is used to upload file for partial proposals to IPFS.
 
 [API to upload to file to spheron](https://github.com/Ahmed-Aghadi/The-Dao/blob/main/website/pages/api/upload-spheron.ts)
 
