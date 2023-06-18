@@ -1,8 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import formidable from "formidable";
-import fs from "fs";
-import lighthouse from "@lighthouse-web3/sdk";
 import { SpheronClient, ProtocolEnum } from "@spheron/storage";
 
 const client = new SpheronClient({ token: process.env.SPHERON_TOKEN! });

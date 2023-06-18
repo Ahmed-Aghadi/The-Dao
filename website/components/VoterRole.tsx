@@ -1,67 +1,13 @@
-import {
-  daoFactoryAbi,
-  daoFactoryContractAddress,
-  dataDaoAbi,
-  marketDeals,
-  rpcUrl,
-} from "@/constants";
-import {
-  Button,
-  Center,
-  createStyles,
-  Grid,
-  NumberInput,
-  Select,
-  Skeleton,
-  Stack,
-  Text,
-  TextInput,
-  Tooltip,
-} from "@mantine/core";
-import { DatePicker, TimeInput } from "@mantine/dates";
-import { useForm } from "@mantine/form";
+import { dataDaoAbi } from "@/constants";
+import { Button, NumberInput, TextInput } from "@mantine/core";
 import { showNotification, updateNotification } from "@mantine/notifications";
-import {
-  Icon3dCubeSphere,
-  IconCheck,
-  IconQuestionCircle,
-  IconX,
-} from "@tabler/icons";
-import CID from "cids";
+import { IconCheck, IconX } from "@tabler/icons";
 import { ethers } from "ethers";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAccount, useSigner } from "wagmi";
-import { ProposalCard } from "./ProposalCard";
-
-const useStyles = createStyles((theme) => ({
-  tooltipIcon: {
-    display: "block",
-    opacity: 0.5,
-    "&:hover": {
-      cursor: "pointer",
-      opacity: 0.8,
-    },
-  },
-}));
-
-type Proposal = {
-  id: number;
-  cid: string;
-  size: number;
-  bountyAmount: string;
-  numberOfBounties: number;
-  amountedFunded: string;
-  votes: number;
-  minDays: number;
-  maxDealAtATime: number;
-  minDealsDone: number;
-  endTime: Date;
-  enabled: boolean;
-};
 
 export function VoterRole({ minVotes }: { minVotes: string }) {
-  const { classes, theme, cx } = useStyles();
   const { data: signer } = useSigner();
   const { isConnected } = useAccount();
   const router = useRouter();

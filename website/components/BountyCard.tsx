@@ -1,36 +1,16 @@
-import {
-  daoFactoryAbi,
-  daoFactoryContractAddress,
-  dataDaoAbi,
-  marketDeals,
-  rpcUrl,
-} from "@/constants";
+import { dataDaoAbi, marketDeals } from "@/constants";
 import {
   Button,
   Card,
-  Center,
   createStyles,
   Flex,
-  Group,
-  NumberInput,
   RingProgress,
   Select,
-  Skeleton,
-  Stack,
   Text,
   TextInput,
-  Tooltip,
 } from "@mantine/core";
-import { DatePicker, TimeInput } from "@mantine/dates";
-import { useForm } from "@mantine/form";
 import { showNotification, updateNotification } from "@mantine/notifications";
-import {
-  Icon3dCubeSphere,
-  IconCheck,
-  IconQuestionCircle,
-  IconX,
-} from "@tabler/icons";
-import CID from "cids";
+import { IconCheck, IconX } from "@tabler/icons";
 import { ethers } from "ethers";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -114,7 +94,6 @@ export function BountyCard({
   const { data: signer } = useSigner();
   const { isConnected } = useAccount();
   const router = useRouter();
-  const [hasVoted, setHasVoted] = useState(false);
 
   const [value, setValue] = useState<string | null>(null);
   const [deals, setDeals] = useState<Deal[]>([]);

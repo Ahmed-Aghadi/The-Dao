@@ -1,4 +1,4 @@
-import { AppShell, Navbar, Header } from "@mantine/core";
+import { AppShell } from "@mantine/core";
 import { HeaderTabsColored } from "./Headers";
 
 export function AppContainer({ children }: { children: React.ReactNode }) {

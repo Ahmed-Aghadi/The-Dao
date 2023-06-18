@@ -1,30 +1,19 @@
 import { AddressesInput } from "@/components/AddressesInput";
 import { AppContainer } from "@/components/AppContainer";
 import {
-  Badge,
   Box,
   Button,
   Container,
   createStyles,
   Group,
   NumberInput,
-  ScrollArea,
-  Text,
   TextInput,
   Title,
 } from "@mantine/core";
-import {
-  hasLength,
-  isEmail,
-  isInRange,
-  isNotEmpty,
-  matches,
-  useForm,
-} from "@mantine/form";
+import { hasLength, isInRange, useForm } from "@mantine/form";
 import { showNotification, updateNotification } from "@mantine/notifications";
 import { IconCheck, IconX } from "@tabler/icons";
 import { ethers } from "ethers";
-import { useState } from "react";
 import { useAccount, useSigner } from "wagmi";
 import { daoFactoryAbi, daoFactoryContractAddress } from "@/constants/index";
 import { useRouter } from "next/router";
@@ -46,7 +35,7 @@ const db = new Polybase({
 });
 
 export default function Home() {
-  const { classes, theme } = useStyles();
+  const { classes } = useStyles();
   const { data: signer } = useSigner();
   const { isConnected } = useAccount();
   const router = useRouter();

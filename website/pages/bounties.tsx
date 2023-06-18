@@ -1,6 +1,5 @@
 import { AppContainer } from "@/components/AppContainer";
 import { BountyCard } from "@/components/BountyCard";
-import { GlowButton } from "@/components/GlowButton";
 import {
   daoFactoryAbi,
   daoFactoryContractAddress,
@@ -12,7 +11,7 @@ import CID from "cids";
 import { ethers } from "ethers";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useAccount, useSigner } from "wagmi";
+import { useSigner } from "wagmi";
 
 type Proposal = {
   id: number;
@@ -33,7 +32,6 @@ type Proposal = {
 
 export default function Home() {
   const { data: signer } = useSigner();
-  const { isConnected } = useAccount();
   const router = useRouter();
   const [bounties, setBounties] = useState<Proposal[]>([]);
   console.log("bounties: ", bounties);

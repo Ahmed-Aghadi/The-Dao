@@ -4,14 +4,13 @@ import { Skeleton, Tabs } from "@mantine/core";
 import { ethers } from "ethers";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useAccount, useSigner } from "wagmi";
+import { useAccount } from "wagmi";
 import {
   Badge,
   Center,
   Container,
   createStyles,
   Group,
-  Stack,
   Text,
   Title,
 } from "@mantine/core";
@@ -25,77 +24,7 @@ import { CreateProposal } from "@/components/CreateProposal";
 import { Proposal } from "@/components/Proposal";
 import { ProposalRole } from "@/components/ProposalRole";
 import { VoterRole } from "@/components/VoterRole";
-import { Database } from "@tableland/sdk";
 import { Chat } from "@/components/Chat";
-
-const ABI = [
-  {
-    inputs: [
-      {
-        internalType: "int256",
-        name: "errorCode",
-        type: "int256",
-      },
-    ],
-    name: "ActorError",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "ActorNotFound",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "FailToCallActor",
-    type: "error",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint64",
-        name: "",
-        type: "uint64",
-      },
-    ],
-    name: "InvalidCodec",
-    type: "error",
-  },
-  {
-    inputs: [],
-    name: "InvalidResponseLength",
-    type: "error",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "balance",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
-      },
-    ],
-    name: "NotEnoughBalance",
-    type: "error",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint64",
-        name: "actorID",
-        type: "uint64",
-      },
-    ],
-    name: "send",
-    outputs: [],
-    stateMutability: "payable",
-    type: "function",
-  },
-];
 
 const useStyles = createStyles((theme) => ({
   title: {
@@ -150,7 +79,6 @@ export default function Home() {
   const [isVoter, setIsVoter] = useState<boolean>(false);
   const { address, isConnected } = useAccount();
   const router = useRouter();
-  const { data: signer } = useSigner();
 
   useEffect(() => {
     (async () => {

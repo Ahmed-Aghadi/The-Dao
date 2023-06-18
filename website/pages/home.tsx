@@ -2,7 +2,6 @@ import { AppContainer } from "@/components/AppContainer";
 import { HoverCards } from "@/components/HoverCards";
 import {
   Badge,
-  Center,
   Container,
   createStyles,
   Group,
@@ -11,7 +10,6 @@ import {
   Title,
 } from "@mantine/core";
 import { IconBoxMultiple, IconSquarePlus, IconZoomMoney } from "@tabler/icons";
-import { useRouter } from "next/router";
 
 const useStyles = createStyles((theme) => ({
   title: {
@@ -75,8 +73,7 @@ const tiles = [
 ];
 
 export default function Home() {
-  const { classes, theme } = useStyles();
-  const router = useRouter();
+  const { classes } = useStyles();
   const hrefs = tiles.map((tile) => tile.href);
   const divs = tiles.map((tile) => {
     return (

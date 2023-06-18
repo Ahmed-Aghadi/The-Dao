@@ -1,39 +1,21 @@
-import {
-  daoFactoryAbi,
-  daoFactoryContractAddress,
-  dataDaoAbi,
-  marketDeals,
-  rpcUrl,
-} from "@/constants";
+import { dataDaoAbi } from "@/constants";
 import {
   Anchor,
   Button,
   Card,
-  Center,
   Checkbox,
   createStyles,
   FileInput,
   Flex,
-  Group,
   Modal,
   NumberInput,
   RingProgress,
-  Select,
-  Skeleton,
-  Stack,
   Text,
   TextInput,
   Tooltip,
 } from "@mantine/core";
-import { DatePicker, TimeInput } from "@mantine/dates";
-import { useForm } from "@mantine/form";
 import { showNotification, updateNotification } from "@mantine/notifications";
-import {
-  Icon3dCubeSphere,
-  IconCheck,
-  IconQuestionCircle,
-  IconX,
-} from "@tabler/icons";
+import { IconCheck, IconQuestionCircle, IconX } from "@tabler/icons";
 import CID from "cids";
 import { ethers } from "ethers";
 import { useRouter } from "next/router";

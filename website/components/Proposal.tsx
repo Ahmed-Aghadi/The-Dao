@@ -1,49 +1,11 @@
-import {
-  daoFactoryAbi,
-  daoFactoryContractAddress,
-  dataDaoAbi,
-  marketDeals,
-  rpcUrl,
-} from "@/constants";
-import {
-  Button,
-  Center,
-  createStyles,
-  Grid,
-  NumberInput,
-  Select,
-  Skeleton,
-  Stack,
-  Text,
-  TextInput,
-  Tooltip,
-} from "@mantine/core";
-import { DatePicker, TimeInput } from "@mantine/dates";
-import { useForm } from "@mantine/form";
-import { showNotification, updateNotification } from "@mantine/notifications";
-import {
-  Icon3dCubeSphere,
-  IconCheck,
-  IconQuestionCircle,
-  IconX,
-} from "@tabler/icons";
+import { dataDaoAbi, rpcUrl } from "@/constants";
+import { Grid } from "@mantine/core";
 import CID from "cids";
 import { ethers } from "ethers";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useAccount, useSigner } from "wagmi";
+import { useSigner } from "wagmi";
 import { ProposalCard } from "./ProposalCard";
-
-const useStyles = createStyles((theme) => ({
-  tooltipIcon: {
-    display: "block",
-    opacity: 0.5,
-    "&:hover": {
-      cursor: "pointer",
-      opacity: 0.8,
-    },
-  },
-}));
 
 type Proposal = {
   id: number;
@@ -61,9 +23,7 @@ type Proposal = {
 };
 
 export function Proposal() {
-  const { classes, theme, cx } = useStyles();
   const { data: signer } = useSigner();
-  const { isConnected } = useAccount();
   const router = useRouter();
   const [proposals, setProposals] = useState<Proposal[]>([]);
   const [minVotes, setMinVotes] = useState<number>(0);
