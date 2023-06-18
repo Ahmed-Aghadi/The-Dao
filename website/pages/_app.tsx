@@ -14,16 +14,16 @@ import { publicProvider } from "wagmi/providers/public";
 import { NotificationsProvider } from "@mantine/notifications";
 
 const hyperspaceTestnet: Chain = {
-  id: 3141,
-  name: "Hyperspace",
-  network: "Hyperspace",
+  id: 314159,
+  name: "Calibration",
+  network: "Calibration",
   nativeCurrency: {
     decimals: 18,
     name: "Filecoin",
     symbol: "tFIL",
   },
   rpcUrls: {
-    default: "https://api.hyperspace.node.glif.io/rpc/v1",
+    default: "https://api.calibration.node.glif.io/rpc/v1",
   },
   testnet: true,
 };

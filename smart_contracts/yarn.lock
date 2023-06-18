@@ -996,6 +996,11 @@
     ethers "^4.0.0-beta.1"
     source-map-support "^0.5.19"
 
+"@openzeppelin/contracts@4.8.3":
+  version "4.8.3"
+  resolved "https://registry.yarnpkg.com/@openzeppelin/contracts/-/contracts-4.8.3.tgz#cbef3146bfc570849405f59cba18235da95a252a"
+  integrity sha512-bQHV8R9Me8IaJoJ2vPG4rXcL7seB7YVuskr4f+f5RyOStSZetwzkWtoqDMl5erkBJy0lDRUnIR2WIkPiC0GJlg==
+
 "@openzeppelin/contracts@^4.8.0":
   version "4.8.1"
   resolved "https://registry.yarnpkg.com/@openzeppelin/contracts/-/contracts-4.8.1.tgz#709cfc4bbb3ca9f4460d60101f15dac6b7a2d5e4"
@@ -1171,10 +1176,12 @@
   dependencies:
     defer-to-connect "^2.0.1"
 
-"@tableland/evm@^4.2.2":
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/@tableland/evm/-/evm-4.2.2.tgz#c042fe7d174de69796942bc6625c2ff0636d3ef6"
-  integrity sha512-itcUWvnZ4CDujVXlP9SKM49Tfo1mawynf0PooceA76JqGMFKaO1f5LArD7Xss0YOvRMtRpQbELbfNdznIk+FGw==
+"@tableland/evm@^4.3.0":
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/@tableland/evm/-/evm-4.3.0.tgz#ee510c731c2094c9b6fd4300ef81f8716f9a0513"
+  integrity sha512-DweAJgho9hwjSF+0My0eB8T8OQ66Pe3IC0878s6GArA6aMDr3OYRk35TW/EgOPTBlVBgqo0S1WBHW+hswG8miw==
+  dependencies:
+    "@openzeppelin/contracts" "4.8.3"
 
 "@truffle/abi-utils@^1.0.0":
   version "1.0.0"

@@ -8,7 +8,7 @@ import { tabs as tabsImport } from "./tabs";
 export const tabs = tabsImport;
 
 export const currency = "TFIL";
-export const rpcUrl = "https://api.hyperspace.node.glif.io/rpc/v1";
+export const rpcUrl = "https://api.calibration.node.glif.io/rpc/v1";
 
 // module.exports = {
 //     currency,
