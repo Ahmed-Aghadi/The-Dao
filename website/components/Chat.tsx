@@ -1,7 +1,6 @@
-import { Button, Container, Group, Text, Textarea } from "@mantine/core";
-import { showNotification, updateNotification } from "@mantine/notifications";
+import { Container, Group, Text, Textarea } from "@mantine/core";
 import { Polybase } from "@polybase/client";
-import { IconCheck, IconSend, IconX } from "@tabler/icons";
+import { IconSend } from "@tabler/icons";
 import { ethers } from "ethers";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -110,7 +109,6 @@ export function Chat() {
 
   // fetch messages automatically every 5 seconds
   useEffect(() => {
-    return;
     const interval = setInterval(() => {
       fetchMessages();
     }, 5000);
