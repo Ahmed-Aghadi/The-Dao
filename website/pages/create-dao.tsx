@@ -176,10 +176,6 @@ export default function Home() {
         daoFactoryAbi,
         signer!
       );
-      // address[] memory proposers,
-      // address[] memory voters,
-      // uint minVotesArg,
-      // string memory name
       const tx = await contractInstance.createDao(
         form.values.proposals,
         form.values.voters,
@@ -197,9 +193,6 @@ export default function Home() {
 
       console.log("response");
       console.log(response);
-
-      // console.log("response hash")
-      // console.log(response.hash)
       console.log("-----------------------------");
 
       updateNotification({
@@ -255,7 +248,6 @@ export default function Home() {
               // @ts-ignore
               address,
             ]);
-            // form.insertListItem("voters", address);
           }}
           inputTitle="Proposal"
           listTitle="Proposals List :"
@@ -270,7 +262,6 @@ export default function Home() {
               // @ts-ignore
               address,
             ]);
-            // form.insertListItem("voters", address);
           }}
           inputTitle="Voter"
           listTitle="Voters List :"

@@ -90,10 +90,6 @@ export default function Home() {
           ]);
         }
       }
-
-      // console.log({ proposalCount: proposalCount.toString() });
-      // const proposal = await contractInstance.proposals(1);
-      // console.log({ proposal });
     })();
   }, [router.query]);
   console.log(bounties);
