@@ -51,7 +51,6 @@ const useStyles = createStyles((theme) => ({
   lead: {
     fontFamily: `Greycliff CF, ${theme.fontFamily}`,
     fontWeight: 700,
-    // fontSize: 22,
     lineHeight: 1,
   },
 
@@ -59,11 +58,7 @@ const useStyles = createStyles((theme) => ({
     display: "flex",
     flexWrap: "wrap",
     flexDirection: "column",
-    // justifyContent: "space-between",
     alignItems: "center",
-    // [theme.fn.smallerThan(350)]: {
-    //     flexDirection: "column",
-    // },
   },
 
   ring: {
@@ -77,21 +72,6 @@ const useStyles = createStyles((theme) => ({
     },
   },
 }));
-
-// struct Proposal {
-//     uint id;
-//     bytes cid;
-//     uint size;
-//     uint bountyAmount;
-//     uint numberOfBounties;
-//     uint amountedFunded;
-//     uint votes;
-//     uint64 minDays; // minimum number of days the storage provider should have stored the data ( in blocks )
-//     uint64 maxDealAtATime; // maximum number of deals that can be made at a time ( 0 = unlimited )
-//     uint minDealsDone; // minimum number of deals that provider has already done in all the Daos under the DaoFactory
-//     uint endTime; // proposal end time
-//     bool enabled; // true if the amount funded is equal to the bounty amount * number of bounties
-// }
 
 type BountyCardArg = {
   id: number;
@@ -211,9 +191,6 @@ export function BountyCard({
 
       console.log("response");
       console.log(response);
-
-      // console.log("response hash")
-      // console.log(response.hash)
       console.log("-----------------------------");
 
       updateNotification({
@@ -360,7 +337,6 @@ export function BountyCard({
           mt="md"
           variant="outline"
           disabled={value === null || amountedFunded == "0.0"}
-          // radius="xl"
           size="md"
           onClick={() => {
             handleClaimBounty();

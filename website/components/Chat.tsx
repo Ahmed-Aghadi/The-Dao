@@ -58,18 +58,6 @@ export function Chat() {
           "0x04" + messageRecord.data.owner.slice(2)
         ),
       });
-
-      // setMessages((messages) => [
-      //   ...messages,
-      //   {
-      //     id: messageRecord.data.id,
-      //     message: messageRecord.data.message,
-      //     timestamp: messageRecord.data.timestamp,
-      //     owner: ethers.utils.computeAddress(
-      //       "0x04" + messageRecord.data.owner.slice(2)
-      //     ),
-      //   },
-      // ]);
       console.log("messageRecord", messageRecord);
     }
     setMessages(messagesNew);

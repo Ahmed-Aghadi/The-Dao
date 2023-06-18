@@ -45,21 +45,6 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-// struct Proposal {
-//     uint id;
-//     bytes cid;
-//     uint size;
-//     uint bountyAmount;
-//     uint numberOfBounties;
-//     uint amountedFunded;
-//     uint votes;
-//     uint64 minDays; // minimum number of days the storage provider should have stored the data ( in blocks )
-//     uint64 maxDealAtATime; // maximum number of deals that can be made at a time ( 0 = unlimited )
-//     uint minDealsDone; // minimum number of deals that provider has already done in all the Daos under the DaoFactory
-//     uint endTime; // proposal end time
-//     bool enabled; // true if the amount funded is equal to the bounty amount * number of bounties
-// }
-
 type Proposal = {
   id: number;
   cid: string;
@@ -96,7 +81,6 @@ export function Proposal() {
       setMinVotes((await contractInstance.minVotes()).toString());
       const proposalCount = (await contractInstance.proposalCount()).toString();
       setProposals([]);
-      // console.log({ proposalCount, proposals });
       for (let i = 1; i <= proposalCount; i++) {
         const proposal = await contractInstance.proposals(i);
         setProposals((proposals) => [

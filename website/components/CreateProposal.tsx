@@ -148,13 +148,6 @@ export function CreateProposal() {
         value < 0 ? "Max Deal At A Time can't be less than 0" : null,
       minDealsDone: (value) =>
         value < 0 ? "Min Deals Done can't be less than 0" : null,
-      // endDate: (value) =>
-      //     value.endDay.getDate() === value.endTime.getDate() &&
-      //     value.endDay.getMonth() === value.endTime.getMonth() &&
-      //     value.endDay.getFullYear() === value.endTime.getFullYear() &&
-      //     value.endTime.getTime() < new Date().getTime()
-      //         ? "End Date must be greater than today"
-      //         : null,
       endDate: (value) =>
         value.getDate() < new Date().getDate() &&
         value.getMonth() <= new Date().getMonth() &&
@@ -207,10 +200,6 @@ export function CreateProposal() {
               dataDaoAbi,
               signer!
             );
-            // address[] memory proposers,
-            // address[] memory voters,
-            // uint minVotesArg,
-            // string memory name
             const endDateTime = new Date(values.endDate);
             endDateTime.setHours(values.endTime.getHours());
             endDateTime.setMinutes(values.endTime.getMinutes());
@@ -285,9 +274,6 @@ export function CreateProposal() {
 
             console.log("response");
             console.log(response);
-
-            // console.log("response hash")
-            // console.log(response.hash)
             console.log("-----------------------------");
 
             if (!values.useSample && values.isPartial) {
@@ -316,19 +302,6 @@ export function CreateProposal() {
 
               const proposalReference = db.collection("Proposal");
               console.log("proposalReference", proposalReference);
-              // // event ProposalCreated(uint id);
-              // // find event ProposalCreated(uint id) in response.events
-              // for (const event of response.events) {
-              //   if (event.event === "ProposalCreated") {
-              //     console.log("proposal event found: ", event);
-              //     console.log("proposal id: ", event.args[0]);
-              //     const recordData = await proposalReference.create([
-              //       event.args[0].toString(), // or event.args.id
-              //       url,
-              //     ]);
-              //     console.log("recordData: ", recordData);
-              //   }
-              // }
               const recordData = await proposalReference.create([
                 (router.query.address as string) +
                   "-" +
